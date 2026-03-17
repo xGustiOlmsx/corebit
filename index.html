@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gustavo Olmos — Ingeniero de Software Full Stack. Desarrollo web end-to-end con precisión técnica.">
+  <title>Corebit — Gustavo Olmos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    /* ═══ RESET & BASE ═══ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy-deep:   #050C1A;
+      --navy-mid:    #0D1B2A;
+      --navy-soft:   #112240;
+      --navy-border: #1B3358;
+      --accent:      #4ECAFF;
+      --accent-dim:  #1A8CB8;
+      --white:       #F0F6FF;
+      --grey:        #8BA4BF;
+      --mono: 'Space Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+      --max-w: 1100px;
+      --section-py: 120px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy-deep);
+      color: var(--white);
+      font-family: var(--sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ═══ GRID BACKGROUND ═══ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(78,202,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(78,202,255,.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ═══ LAYOUT ═══ */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      padding: var(--section-py) 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ═══ SECTION LABEL ═══ */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: .5;
+      margin-bottom: 56px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--navy-border);
+    }
+
+    /* ═══ SCROLL REVEAL ═══ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .12s; }
+    .reveal-delay-2 { transition-delay: .24s; }
+    .reveal-delay-3 { transition-delay: .36s; }
+    .reveal-delay-4 { transition-delay: .48s; }
+
+    /* ═══════════════════════════════
+       NAV
+    ═══════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      border-bottom: 1px solid transparent;
+      transition: background .3s, border-color .3s, backdrop-filter .3s;
+    }
+    nav.scrolled {
+      background: rgba(5,12,26,.85);
+      border-bottom-color: var(--navy-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo svg { width: 28px; height: 28px; flex-shrink: 0; }
+    .nav-wordmark {
+      font-family: var(--mono);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -.02em;
+    }
+    .nav-wordmark span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--grey);
+      text-decoration: none;
+      letter-spacing: .05em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ═══════════════════════════════
+       HERO
+    ═══════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-inner {
+      max-width: var(--max-w);
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(78,202,255,.08);
+      border: 1px solid rgba(78,202,255,.2);
+      padding: 8px 16px;
+      width: fit-content;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: .25; }
+    }
+    .hero-badge-text {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: .12em;
+    }
+    .hero-heading {
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: clamp(44px, 8vw, 88px);
+      line-height: 1;
+      letter-spacing: -.03em;
+    }
+    .hero-heading .dim { color: var(--grey); font-weight: 400; }
+    .hero-heading .accent-dot { color: var(--accent); }
+    .hero-role {
+      font-family: var(--mono);
+      font-size: clamp(14px, 1.8vw, 18px);
+      color: var(--grey);
+      letter-spacing: .04em;
+    }
+    .hero-role span { color: var(--accent); opacity: .7; margin-right: 8px; }
+    .hero-sub {
+      font-family: var(--sans);
+      font-size: 17px;
+      color: var(--grey);
+      max-width: 500px;
+      line-height: 1.8;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 28px;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: opacity .2s, transform .15s;
+    }
+    .btn:hover { opacity: .85; transform: translateY(-2px); }
+    .btn-primary { background: var(--accent); color: var(--navy-deep); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+    .hero-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      align-items: center;
+      padding-top: 24px;
+      border-top: 1px solid var(--navy-border);
+    }
+    .hero-meta-item {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--grey);
+      letter-spacing: .06em;
+      opacity: .7;
+    }
+    .hero-meta-item .sl { color: var(--accent); margin-right: 6px; opacity: .6; }
+
+    /* ═══════════════════════════════
+       ABOUT
+    ═══════════════════════════════ */
+    #about { background: var(--navy-mid); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .about-text h2 {
+      font-family: var(--mono);
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+    .about-text h2 span { color: var(--accent); }
+    .about-text p {
+      font-size: 15px;
+      color: var(--grey);
+      line-height: 1.85;
+      margin-bottom: 16px;
+    }
+    .about-text p strong { color: var(--white); font-weight: 500; }
+    .about-values {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 36px;
+    }
+    .about-value {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      background: var(--navy-soft);
+      transition: background .2s;
+    }
+    .about-value:hover { background: rgba(78,202,255,.06); }
+    .about-value-icon {
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .about-value-text {
+      font-size: 14px;
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* About card */
+    .about-card {
+      background: var(--navy-soft);
+      border-left: 3px solid var(--accent);
+      padding: 40px;
+      position: sticky;
+      top: 100px;
+    }
+    .about-card-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: .5;
+      margin-bottom: 36px;
+    }
+    .about-stat-num {
+      font-family: var(--mono);
+      font-size: 44px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -.04em;
+      line-height: 1;
+    }
+    .about-stat-num .accent-dot { color: var(--accent); }
+    .about-stat-sub {
+      font-family: var(--mono);
+      font-size: 22px;
+      color: var(--grey);
+      font-weight: 400;
+      letter-spacing: -.02em;
+    }
+    .about-divider {
+      height: 1px;
+      background: var(--navy-border);
+      margin: 28px 0;
+    }
+    .about-card-foot {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--grey);
+      letter-spacing: .08em;
+      opacity: .5;
+    }
+
+    /* ═══════════════════════════════
+       STACK
+    ═══════════════════════════════ */
+    #stack {}
+
+    .stack-categories {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .stack-row { display: flex; gap: 40px; align-items: flex-start; }
+    .stack-category-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--grey);
+      opacity: .45;
+      margin-bottom: 14px;
+    }
+    .stack-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .stack-chip {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--white);
+      background: var(--navy-mid);
+      border: 1px solid var(--navy-border);
+      padding: 8px 16px;
+      letter-spacing: .04em;
+      transition: border-color .2s, color .2s, background .2s;
+      cursor: default;
+    }
+    .stack-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(78,202,255,.05);
+    }
+
+    /* ═══════════════════════════════
+       PORTFOLIO
+    ═══════════════════════════════ */
+    #portfolio { background: var(--navy-mid); }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .project-card {
+      background: var(--navy-soft);
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transition: background .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s ease;
+    }
+    .project-card:hover { background: rgba(78,202,255,.04); }
+    .project-card:hover::before { transform: scaleX(1); }
+
+    .project-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      opacity: .35;
+      letter-spacing: .1em;
+    }
+    .project-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+      border: 1px dashed var(--navy-border);
+      gap: 12px;
+      opacity: .3;
+    }
+    .project-placeholder-text {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .15em;
+      color: var(--grey);
+    }
+    .project-title {
+      font-family: var(--mono);
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -.02em;
+      line-height: 1.2;
+    }
+    .project-desc {
+      font-size: 14px;
+      color: var(--grey);
+      line-height: 1.7;
+      flex: 1;
+    }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .project-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent);
+      background: rgba(78,202,255,.08);
+      border: 1px solid rgba(78,202,255,.15);
+      padding: 4px 10px;
+      letter-spacing: .08em;
+    }
+    .project-links {
+      display: flex;
+      gap: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--navy-border);
+    }
+    .project-link {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--grey);
+      text-decoration: none;
+      letter-spacing: .05em;
+      transition: color .2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .project-link:hover { color: var(--accent); }
+    .project-link-disabled {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--grey);
+      opacity: .3;
+      letter-spacing: .05em;
+    }
+
+    /* ═══════════════════════════════
+       CONTACT
+    ═══════════════════════════════ */
+    #contact {}
+
+    .contact-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-inner h2 {
+      font-family: var(--mono);
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .contact-inner h2 span { color: var(--accent); }
+    .contact-inner p {
+      font-size: 15px;
+      color: var(--grey);
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+    .contact-email {
+      font-family: var(--mono);
+      font-size: 15px;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 16px 32px;
+      border: 1px solid var(--navy-border);
+      display: inline-block;
+      margin-bottom: 40px;
+      transition: border-color .2s, background .2s;
+      letter-spacing: .02em;
+    }
+    .contact-email:hover {
+      border-color: var(--accent);
+      background: rgba(78,202,255,.05);
+    }
+    .contact-socials {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .social-link {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--grey);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid var(--navy-border);
+      letter-spacing: .06em;
+      transition: color .2s, border-color .2s;
+    }
+    .social-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ═══════════════════════════════
+       FOOTER
+    ═══════════════════════════════ */
+    footer {
+      border-top: 1px solid var(--navy-border);
+      padding: 36px 0;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-brand svg { width: 20px; height: 20px; }
+    .footer-wordmark {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .footer-wordmark span { color: var(--accent); }
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--grey);
+      opacity: .4;
+      letter-spacing: .04em;
+    }
+
+    /* ═══════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════ */
+    /* ═══ THEME TOGGLE ═══ */
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--navy-border);
+      color: var(--grey);
+      width: 34px; height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-sun  { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="light"] .theme-toggle .icon-sun  { display: block; }
+    [data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+    /* ═══ LIGHT THEME ═══ */
+    [data-theme="light"] {
+      --navy-deep:   #EEF4FC;
+      --navy-mid:    #F8FBFF;
+      --navy-soft:   #E2EAF5;
+      --navy-border: #C0D0E2;
+      --white:       #0A1628;
+      --grey:        #4A6880;
+      --accent:      #1A8CB8;
+      --accent-dim:  #0F6A8A;
+    }
+    [data-theme="light"] body::before {
+      background-image:
+        linear-gradient(rgba(26,140,184,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,140,184,.06) 1px, transparent 1px);
+    }
+    [data-theme="light"] nav { background: rgba(238,244,252,.9); }
+    [data-theme="light"] nav.scrolled { background: rgba(238,244,252,.95); }
+    [data-theme="light"] .btn-primary { color: #F0F6FF; }
+    [data-theme="light"] .nav-wordmark { color: var(--white); }
+    [data-theme="light"] .footer-wordmark { color: var(--white); }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 900px) {
+      :root { --section-py: 80px; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-card { position: static; }
+      .portfolio-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 600px) {
+      :root { --section-py: 64px; }
+      .container { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .hero-inner { padding: 0 20px; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+      .hero-meta { gap: 16px; }
+      .hero-meta-item { font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAV ═══ -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="logo.png" alt="Corebit" style="width:32px;height:32px;object-fit:contain;border-radius:6px;">
+        <span class="nav-wordmark">Core<span>bit</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contact">Contacto</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+        <!-- Moon (shown in dark mode) -->
+        <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <!-- Sun (shown in light mode) -->
+        <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-grid">
+
+        <!-- LEFT: badge + heading -->
+        <div class="hero-left">
+          <div class="hero-badge reveal">
+            <div class="hero-badge-dot"></div>
+            <span class="hero-badge-text">DISPONIBLE PARA PROYECTOS</span>
+          </div>
+          <h1 class="hero-heading reveal reveal-delay-1">
+            Gustavo<br>
+            <span class="dim">Olmos</span><span class="accent-dot">.</span>
+          </h1>
+        </div>
+
+        <!-- RIGHT: role + sub + actions + meta -->
+        <div class="hero-right">
+          <div class="hero-role reveal reveal-delay-2">
+            <span>//</span> Ingeniero de Software Full Stack
+          </div>
+          <p class="hero-sub reveal reveal-delay-2">
+            Desarrollo aplicaciones web end-to-end con precisión técnica en cada capa del stack. Desde la base de datos hasta la interfaz.
+          </p>
+          <div class="hero-actions reveal reveal-delay-3">
+            <a href="#portfolio" class="btn btn-primary">Ver portfolio</a>
+            <a href="#contact" class="btn btn-outline">Contactar</a>
+          </div>
+          <div class="hero-meta reveal reveal-delay-4">
+            <span class="hero-meta-item"><span class="sl">//</span> Full Stack Development</span>
+            <span class="hero-meta-item"><span class="sl">//</span> corebit.dev</span>
+            <span class="hero-meta-item"><span class="sl">//</span> Buenos Aires, AR</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ═══ -->
+  <section id="about">
+    <div class="container">
+      <div class="section-label">01 &nbsp; Sobre mí</div>
+      <div class="about-grid">
+
+        <div class="about-text reveal">
+          <h2>Built at the <span>core</span>.</h2>
+          <p>
+            Soy Gustavo Olmos, desarrollador full stack con foco en construir productos digitales sólidos y escalables. Me interesa cada capa del stack: desde modelar la base de datos hasta pulir la experiencia de usuario.
+          </p>
+          <p>
+            Trabajo bajo la marca <strong>Corebit</strong> — un nombre que refleja mi forma de encarar el desarrollo: preciso, directo y sin bloat innecesario.
+          </p>
+          <div class="about-values">
+            <div class="about-value">
+              <span class="about-value-icon">→</span>
+              <span class="about-value-text">Código limpio y mantenible</span>
+            </div>
+            <div class="about-value">
+              <span class="about-value-icon">→</span>
+              <span class="about-value-text">Arquitectura pensada desde el inicio</span>
+            </div>
+            <div class="about-value">
+              <span class="about-value-icon">→</span>
+              <span class="about-value-text">Comunicación clara con el cliente</span>
+            </div>
+            <div class="about-value">
+              <span class="about-value-icon">→</span>
+              <span class="about-value-text">Entrega puntual, sin sorpresas</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-card reveal reveal-delay-2">
+          <div class="about-card-label">Perfil</div>
+          <div>
+            <div class="about-stat-num">Full<span class="accent-dot">.</span></div>
+            <div class="about-stat-sub">Stack Dev</div>
+          </div>
+          <div class="about-divider"></div>
+          <div>
+            <div class="about-stat-num">Zero<span class="accent-dot">.</span></div>
+            <div class="about-stat-sub">Bloat</div>
+          </div>
+          <div class="about-divider"></div>
+          <div class="about-card-foot">// Buenos Aires, Argentina</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ STACK ═══ -->
+  <section id="stack">
+    <div class="container">
+      <div class="section-label">02 &nbsp; Stack tecnológico</div>
+      <div class="stack-categories">
+
+        <div class="reveal">
+          <div class="stack-category-label">Frontend</div>
+          <div class="stack-chips">
+            <div class="stack-chip">React</div>
+            <div class="stack-chip">TypeScript</div>
+            <div class="stack-chip">Next.js</div>
+            <div class="stack-chip">Tailwind CSS</div>
+            <div class="stack-chip">HTML / CSS</div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-1">
+          <div class="stack-category-label">Backend</div>
+          <div class="stack-chips">
+            <div class="stack-chip">Node.js</div>
+            <div class="stack-chip">Express</div>
+            <div class="stack-chip">Python</div>
+            <div class="stack-chip">FastAPI</div>
+            <div class="stack-chip">REST APIs</div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-2">
+          <div class="stack-category-label">Bases de datos</div>
+          <div class="stack-chips">
+            <div class="stack-chip">PostgreSQL</div>
+            <div class="stack-chip">MongoDB</div>
+            <div class="stack-chip">MySQL</div>
+            <div class="stack-chip">Redis</div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-3">
+          <div class="stack-category-label">Tools & DevOps</div>
+          <div class="stack-chips">
+            <div class="stack-chip">Git / GitHub</div>
+            <div class="stack-chip">Docker</div>
+            <div class="stack-chip">Vercel</div>
+            <div class="stack-chip">Linux</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PORTFOLIO ═══ -->
+  <section id="portfolio">
+    <div class="container">
+      <div class="section-label">03 &nbsp; Portfolio</div>
+      <div class="portfolio-grid">
+
+        <div class="project-card reveal">
+          <div class="project-num">01</div>
+          <div class="project-placeholder">
+            <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
+              <rect x="2" y="2" width="44" height="44" stroke="#4ECAFF" stroke-width="1.5" fill="none"/>
+              <line x1="2"  y1="14" x2="14" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="34" y1="14" x2="46" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="2"  y1="34" x2="14" y2="34" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="34" y1="34" x2="46" y2="34" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="14" y1="2"  x2="14" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="34" y1="2"  x2="34" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="14" y1="34" x2="14" y2="46" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="34" y1="34" x2="34" y2="46" stroke="#4ECAFF" stroke-width="1.5"/>
+              <circle cx="24" cy="24" r="4" fill="#4ECAFF"/>
+            </svg>
+            <div class="project-placeholder-text">PRÓXIMAMENTE</div>
+          </div>
+          <div class="project-title">Proyecto 01</div>
+          <div class="project-desc">Descripción del proyecto próximamente.</div>
+          <div class="project-tags"><span class="project-tag">WIP</span></div>
+          <div class="project-links">
+            <span class="project-link-disabled">— En desarrollo</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-1">
+          <div class="project-num">02</div>
+          <div class="project-placeholder">
+            <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
+              <rect x="2" y="2" width="44" height="44" stroke="#4ECAFF" stroke-width="1.5" fill="none"/>
+              <line x1="2"  y1="14" x2="14" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="34" y1="14" x2="46" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="2"  y1="34" x2="14" y2="34" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="34" y1="34" x2="46" y2="34" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="14" y1="2"  x2="14" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="34" y1="2"  x2="34" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="14" y1="34" x2="14" y2="46" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="34" y1="34" x2="34" y2="46" stroke="#4ECAFF" stroke-width="1.5"/>
+              <circle cx="24" cy="24" r="4" fill="#4ECAFF"/>
+            </svg>
+            <div class="project-placeholder-text">PRÓXIMAMENTE</div>
+          </div>
+          <div class="project-title">Proyecto 02</div>
+          <div class="project-desc">Descripción del proyecto próximamente.</div>
+          <div class="project-tags"><span class="project-tag">WIP</span></div>
+          <div class="project-links">
+            <span class="project-link-disabled">— En desarrollo</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-2">
+          <div class="project-num">03</div>
+          <div class="project-placeholder">
+            <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
+              <rect x="2" y="2" width="44" height="44" stroke="#4ECAFF" stroke-width="1.5" fill="none"/>
+              <line x1="2"  y1="14" x2="14" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="34" y1="14" x2="46" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="2"  y1="34" x2="14" y2="34" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="34" y1="34" x2="46" y2="34" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="14" y1="2"  x2="14" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="34" y1="2"  x2="34" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="14" y1="34" x2="14" y2="46" stroke="#4ECAFF" stroke-width="1.5"/>
+              <line x1="34" y1="34" x2="34" y2="46" stroke="#4ECAFF" stroke-width="1.5"/>
+              <circle cx="24" cy="24" r="4" fill="#4ECAFF"/>
+            </svg>
+            <div class="project-placeholder-text">PRÓXIMAMENTE</div>
+          </div>
+          <div class="project-title">Proyecto 03</div>
+          <div class="project-desc">Descripción del proyecto próximamente.</div>
+          <div class="project-tags"><span class="project-tag">WIP</span></div>
+          <div class="project-links">
+            <span class="project-link-disabled">— En desarrollo</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ═══ -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-label">04 &nbsp; Contacto</div>
+      <div class="contact-inner reveal">
+        <h2>¿Tenés un <span>proyecto</span>?</h2>
+        <p>
+          Estoy disponible para proyectos freelance, consultoría técnica o simplemente para charlar sobre ideas. Escribime.
+        </p>
+        <a href="mailto:gustavoolmos002@gmail.com" class="contact-email">
+          gustavoolmos002@gmail.com
+        </a>
+        <div class="contact-socials">
+          <a href="#" class="social-link">GitHub</a>
+          <a href="#" class="social-link">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="logo.png" alt="Corebit" style="width:22px;height:22px;object-fit:contain;border-radius:4px;">
+        <span class="footer-wordmark">Core<span>bit</span></span>
+      </div>
+      <div class="footer-copy">© 2026 Corebit — Gustavo Olmos</div>
+    </div>
+  </footer>
+
+  <!-- ═══ SCRIPTS ═══ -->
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Theme toggle
+    const toggleBtn = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('cb-theme');
+    if (saved) root.setAttribute('data-theme', saved);
+    toggleBtn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('cb-theme', next);
+    });
+
+    // Scroll reveal via IntersectionObserver
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Trigger hero reveals immediately on load
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.querySelectorAll('#hero .reveal').forEach(el => el.classList.add('visible'));
+      }, 80);
+    });
+  </script>
+
+</body>
+</html>

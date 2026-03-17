@@ -1,0 +1,9 @@
+casebook/
+casebook-tmp/
+CasebookLogo/
+casebook-brandkit.html
+corebit-brandkit.html
+context.md
+memory/
+*.png
+!logo.png
