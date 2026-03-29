@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Gustavo Olmos — Ingeniero de Software Full Stack. Desarrollo web end-to-end con precisión técnica.">
-  <title>Corebit — Gustavo Olmos</title>
+  <meta name="description" content="Corebit — Estudio de desarrollo Full Stack. Gustavo Olmos y Tomás Benitez. Productos digitales precisos y escalables.">
+  <title>Corebit — Estudio Full Stack</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
@@ -619,6 +619,103 @@
     }
 
     /* ═══════════════════════════════
+       TEAM
+    ═══════════════════════════════ */
+    #team {}
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .team-card {
+      background: var(--navy-soft);
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: background .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s ease;
+    }
+    .team-card:hover { background: rgba(78,202,255,.04); }
+    .team-card:hover::before { transform: scaleX(1); }
+    .team-avatar {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: rgba(78,202,255,.12);
+      border: 2px solid rgba(78,202,255,.25);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .team-socials {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .team-social {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--grey);
+      text-decoration: none;
+      padding: 5px 12px;
+      border: 1px solid var(--navy-border);
+      letter-spacing: .06em;
+      transition: color .2s, border-color .2s;
+    }
+    .team-social:hover { color: var(--accent); border-color: var(--accent); }
+    .team-name {
+      font-family: var(--mono);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -.02em;
+    }
+    .team-role {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: .12em;
+      opacity: .7;
+    }
+    .team-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .team-skill {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--grey);
+      background: var(--navy-mid);
+      border: 1px solid var(--navy-border);
+      padding: 4px 10px;
+      letter-spacing: .06em;
+    }
+    .team-contact {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--grey);
+      text-decoration: none;
+      letter-spacing: .04em;
+      opacity: .5;
+      transition: color .2s, opacity .2s;
+      margin-top: auto;
+    }
+    .team-contact:hover { color: var(--accent); opacity: 1; }
+
+    /* ═══════════════════════════════
        RESPONSIVE
     ═══════════════════════════════ */
     /* ═══ THEME TOGGLE ═══ */
@@ -668,6 +765,7 @@
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
       .about-card { position: static; }
       .portfolio-grid { grid-template-columns: 1fr 1fr; }
+      .team-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
       .hero-grid { grid-template-columns: 1fr; gap: 40px; }
     }
@@ -694,6 +792,7 @@
       </a>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
+        <li><a href="#team">Equipo</a></li>
         <li><a href="#stack">Stack</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
         <li><a href="#contact">Contacto</a></li>
@@ -724,21 +823,21 @@
         <div class="hero-left">
           <div class="hero-badge reveal">
             <div class="hero-badge-dot"></div>
-            <span class="hero-badge-text">DISPONIBLE PARA PROYECTOS</span>
+            <span class="hero-badge-text">DISPONIBLES PARA PROYECTOS</span>
           </div>
           <h1 class="hero-heading reveal reveal-delay-1">
-            Gustavo<br>
-            <span class="dim">Olmos</span><span class="accent-dot">.</span>
+            Core<br>
+            <span class="dim">bit</span><span class="accent-dot">.</span>
           </h1>
         </div>
 
         <!-- RIGHT: role + sub + actions + meta -->
         <div class="hero-right">
           <div class="hero-role reveal reveal-delay-2">
-            <span>//</span> Ingeniero de Software Full Stack
+            <span>//</span> Estudio de Desarrollo Full Stack
           </div>
           <p class="hero-sub reveal reveal-delay-2">
-            Desarrollo aplicaciones web end-to-end con precisión técnica en cada capa del stack. Desde la base de datos hasta la interfaz.
+            Somos Gustavo y Tomás, dos desarrolladores full stack construyendo productos digitales sólidos y escalables. Desde la base de datos hasta la interfaz.
           </p>
           <div class="hero-actions reveal reveal-delay-3">
             <a href="#portfolio" class="btn btn-primary">Ver portfolio</a>
@@ -746,7 +845,7 @@
           </div>
           <div class="hero-meta reveal reveal-delay-4">
             <span class="hero-meta-item"><span class="sl">//</span> Full Stack Development</span>
-            <span class="hero-meta-item"><span class="sl">//</span> corebit.dev</span>
+            <span class="hero-meta-item"><span class="sl">//</span> 2 devs</span>
             <span class="hero-meta-item"><span class="sl">//</span> Buenos Aires, AR</span>
           </div>
         </div>
@@ -758,16 +857,16 @@
   <!-- ═══ ABOUT ═══ -->
   <section id="about">
     <div class="container">
-      <div class="section-label">01 &nbsp; Sobre mí</div>
+      <div class="section-label">01 &nbsp; Sobre nosotros</div>
       <div class="about-grid">
 
         <div class="about-text reveal">
           <h2>Built at the <span>core</span>.</h2>
           <p>
-            Soy Gustavo Olmos, desarrollador full stack con foco en construir productos digitales sólidos y escalables. Me interesa cada capa del stack: desde modelar la base de datos hasta pulir la experiencia de usuario.
+            Corebit es un estudio de desarrollo full stack formado por Gustavo Olmos y Tomás Benitez. Construimos productos digitales sólidos y escalables, cubriendo cada capa del stack con la misma atención al detalle.
           </p>
           <p>
-            Trabajo bajo la marca <strong>Corebit</strong> — un nombre que refleja mi forma de encarar el desarrollo: preciso, directo y sin bloat innecesario.
+            El nombre refleja nuestra forma de encarar el trabajo: <strong>preciso, directo y sin bloat innecesario</strong>. Desde modelar la base de datos hasta pulir la experiencia de usuario.
           </p>
           <div class="about-values">
             <div class="about-value">
@@ -790,10 +889,10 @@
         </div>
 
         <div class="about-card reveal reveal-delay-2">
-          <div class="about-card-label">Perfil</div>
+          <div class="about-card-label">Estudio</div>
           <div>
-            <div class="about-stat-num">Full<span class="accent-dot">.</span></div>
-            <div class="about-stat-sub">Stack Dev</div>
+            <div class="about-stat-num">2<span class="accent-dot">.</span></div>
+            <div class="about-stat-sub">Devs Full Stack</div>
           </div>
           <div class="about-divider"></div>
           <div>
@@ -808,10 +907,62 @@
     </div>
   </section>
 
+  <!-- ═══ TEAM ═══ -->
+  <section id="team">
+    <div class="container">
+      <div class="section-label">02 &nbsp; Equipo</div>
+      <div class="team-grid">
+
+        <div class="team-card reveal">
+          <img src="Faces/647173252_1315962453707143_6156495215811161419_n.jpg" alt="Gustavo Olmos" class="team-avatar">
+          <div>
+            <div class="team-name">Gustavo Olmos</div>
+            <div class="team-role">FULL STACK DEVELOPER</div>
+          </div>
+          <div class="team-skills">
+            <span class="team-skill">Next.js</span>
+            <span class="team-skill">TypeScript</span>
+            <span class="team-skill">Node.js</span>
+            <span class="team-skill">PostgreSQL</span>
+            <span class="team-skill">Prisma</span>
+          </div>
+          <div class="team-socials">
+            <a href="https://github.com/xGustiOlmsx" target="_blank" rel="noopener" class="team-social">GitHub</a>
+            <a href="https://www.linkedin.com/in/gustavoolmos-dev/" target="_blank" rel="noopener" class="team-social">LinkedIn</a>
+            <a href="https://www.instagram.com/gustiolmos/" target="_blank" rel="noopener" class="team-social">Instagram</a>
+            <a href="mailto:gustavoolmos002@gmail.com" class="team-social">Email</a>
+          </div>
+        </div>
+
+        <div class="team-card reveal reveal-delay-1">
+          <img src="Faces/1724153181230.jfif" alt="Tomás Benitez" class="team-avatar">
+          <div>
+            <div class="team-name">Tomás Benitez</div>
+            <div class="team-role">FULL STACK DEVELOPER</div>
+          </div>
+          <div class="team-skills">
+            <span class="team-skill">React</span>
+            <span class="team-skill">TypeScript</span>
+            <span class="team-skill">Node.js</span>
+            <span class="team-skill">PostgreSQL</span>
+            <span class="team-skill">Docker</span>
+          </div>
+          <div class="team-socials">
+            <a href="https://github.com/TomyBenitez" target="_blank" rel="noopener" class="team-social">GitHub</a>
+            <a href="https://www.linkedin.com/in/tom%C3%A1s-benitez-63281a31b/" target="_blank" rel="noopener" class="team-social">LinkedIn</a>
+            <a href="https://www.instagram.com/tomyyy_benitez/" target="_blank" rel="noopener" class="team-social">Instagram</a>
+            <a href="mailto:tomybenitez7@gmail.com" class="team-social">Email</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ STACK ═══ -->
   <section id="stack">
     <div class="container">
-      <div class="section-label">02 &nbsp; Stack tecnológico</div>
+      <div class="section-label">03 &nbsp; Stack tecnológico</div>
       <div class="stack-categories">
 
         <div class="reveal">
@@ -863,7 +1014,7 @@
   <!-- ═══ PORTFOLIO ═══ -->
   <section id="portfolio">
     <div class="container">
-      <div class="section-label">03 &nbsp; Portfolio</div>
+      <div class="section-label">04 &nbsp; Portfolio</div>
       <div class="portfolio-grid">
 
         <div class="project-card reveal">
@@ -944,18 +1095,25 @@
   <!-- ═══ CONTACT ═══ -->
   <section id="contact">
     <div class="container">
-      <div class="section-label">04 &nbsp; Contacto</div>
+      <div class="section-label">05 &nbsp; Contacto</div>
       <div class="contact-inner reveal">
         <h2>¿Tenés un <span>proyecto</span>?</h2>
         <p>
-          Estoy disponible para proyectos freelance, consultoría técnica o simplemente para charlar sobre ideas. Escribime.
+          Estamos disponibles para proyectos freelance, consultoría técnica o simplemente para charlar sobre ideas. Escribinos.
         </p>
-        <a href="mailto:gustavoolmos002@gmail.com" class="contact-email">
-          gustavoolmos002@gmail.com
-        </a>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:40px;">
+          <a href="mailto:gustavoolmos002@gmail.com" class="contact-email" style="margin-bottom:0;">
+            gustavoolmos002@gmail.com
+          </a>
+          <a href="mailto:tomybenitez7@gmail.com" class="contact-email" style="margin-bottom:0;">
+            tomybenitez7@gmail.com
+          </a>
+        </div>
         <div class="contact-socials">
-          <a href="#" class="social-link">GitHub</a>
-          <a href="#" class="social-link">LinkedIn</a>
+          <a href="https://github.com/xGustiOlmsx" target="_blank" rel="noopener" class="social-link">GitHub — Gustavo</a>
+          <a href="https://github.com/TomyBenitez" target="_blank" rel="noopener" class="social-link">GitHub — Tomás</a>
+          <a href="https://www.linkedin.com/in/gustavoolmos-dev/" target="_blank" rel="noopener" class="social-link">LinkedIn — Gustavo</a>
+          <a href="https://www.linkedin.com/in/tom%C3%A1s-benitez-63281a31b/" target="_blank" rel="noopener" class="social-link">LinkedIn — Tomás</a>
         </div>
       </div>
     </div>
