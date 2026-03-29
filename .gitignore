@@ -1,4 +1,5 @@
 casebook/
+buildlog/
 casebook-tmp/
 CasebookLogo/
 casebook-brandkit.html
@@ -7,3 +8,5 @@ context.md
 memory/
 *.png
 !logo.png
+!Faces/*.jfif
+!Faces/*.jpg
