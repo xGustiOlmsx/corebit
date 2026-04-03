@@ -716,6 +716,14 @@ footer {
   border: 1px solid var(--navy-border);
   padding: 4px 10px;
   letter-spacing: .06em;
+  cursor: default;
+  transition: color .2s ease, border-color .2s ease, background .2s ease, transform .15s ease;
+}
+.team-skill:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(78,202,255,.08);
+  transform: translateY(-2px);
 }
 .team-contact {
   font-family: var(--mono);
@@ -751,13 +759,13 @@ footer {
 /* ═══ LIGHT THEME ═══ */
 [data-theme="light"] {
   --navy-deep:   #EEF4FC;
-  --navy-mid:    #F0F6FF;
-  --navy-soft:   #DDE8F5;
-  --navy-border: #A8BDD4;
-  --white:       #081525;
-  --grey:        #1E3A52;
-  --accent:      #0B7BA5;
-  --accent-dim:  #085E7F;
+  --navy-mid:    #F8FBFF;
+  --navy-soft:   #E2EAF5;
+  --navy-border: #B0C8DE;
+  --white:       #0A1628;
+  --grey:        #2B5575;
+  --accent:      #0E82B0;
+  --accent-dim:  #0A6A92;
 }
 [data-theme="light"] body::before {
   background-image:
