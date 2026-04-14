@@ -8,10 +8,13 @@
   <link rel="icon" href="logo.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+  <!-- ═══ SCROLL PROGRESS ═══ -->
+  <div class="scroll-progress" id="scrollProgress"></div>
 
   <!-- ═══ NAV ═══ -->
   <nav id="nav">
@@ -51,6 +54,13 @@
 
   <!-- ═══ HERO ═══ -->
   <section id="hero">
+    <!-- PCB circuit animation -->
+    <canvas id="pcbCanvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+    <!-- Ambient orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
     <div class="hero-inner">
       <div class="hero-grid">
 
@@ -60,14 +70,15 @@
             <span class="hero-badge-text" data-i18n="hero.badge">DISPONIBLES PARA PROYECTOS</span>
           </div>
           <h1 class="hero-heading reveal reveal-delay-1">
-            Core<br>
-            <span class="dim">bit</span><span class="accent-dot">.</span>
+            <span class="line-1">Core</span>
+            <span class="line-2"><span class="dim">bit</span><span class="accent-dot">.</span></span>
           </h1>
         </div>
 
         <div class="hero-right">
           <div class="hero-role reveal reveal-delay-2">
-            <span>//</span> <span data-i18n="hero.role">Estudio de Desarrollo Full Stack</span>
+            <span class="sl">//</span>
+            <span data-i18n="hero.role">Estudio de Desarrollo Full Stack</span>
           </div>
           <p class="hero-sub reveal reveal-delay-2" data-i18n="hero.sub">
             Somos Gustavo y Tomás, dos desarrolladores full stack construyendo productos digitales sólidos y escalables. Desde la base de datos hasta la interfaz.
@@ -124,7 +135,7 @@
         <div class="about-card reveal reveal-delay-2">
           <div class="about-card-label" data-i18n="about.card_label">Estudio</div>
           <div>
-            <div class="about-stat-num">2<span class="accent-dot">.</span></div>
+            <div class="about-stat-num" id="statDevs">2<span class="accent-dot">.</span></div>
             <div class="about-stat-sub" data-i18n="about.stat_devs">Devs Full Stack</div>
           </div>
           <div class="about-divider"></div>
@@ -146,11 +157,17 @@
       <div class="section-label" data-i18n="section.team">02 &nbsp; Equipo</div>
       <div class="team-grid">
 
+        <!-- Gustavo -->
         <div class="team-card reveal">
-          <img src="Faces/647173252_1315962453707143_6156495215811161419_n.jpg" alt="Gustavo Olmos" class="team-avatar">
-          <div>
-            <div class="team-name">Gustavo Olmos</div>
-            <div class="team-role" data-i18n="team.role">FULL STACK DEVELOPER</div>
+          <div class="team-card-header">
+            <div class="team-avatar-wrap">
+              <img src="Faces/647173252_1315962453707143_6156495215811161419_n.jpg" alt="Gustavo Olmos" class="team-avatar">
+              <div class="team-avatar-ring"></div>
+            </div>
+            <div class="team-card-info">
+              <div class="team-name">Gustavo Olmos</div>
+              <div class="team-role" data-i18n="team.role">FULL STACK DEVELOPER</div>
+            </div>
           </div>
           <div class="team-skills">
             <span class="team-skill">Next.js</span>
@@ -160,18 +177,44 @@
             <span class="team-skill">Prisma</span>
           </div>
           <div class="team-socials">
-            <a href="https://github.com/xGustiOlmsx" target="_blank" rel="noopener" class="team-social">GitHub</a>
-            <a href="https://www.linkedin.com/in/gustavoolmos-dev/" target="_blank" rel="noopener" class="team-social">LinkedIn</a>
-            <a href="https://www.instagram.com/gustiolmos/" target="_blank" rel="noopener" class="team-social">Instagram</a>
-            <a href="mailto:gustavoolmos002@gmail.com" class="team-social">Email</a>
+            <a href="https://github.com/xGustiOlmsx" target="_blank" rel="noopener" class="team-social" aria-label="GitHub">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+              </svg>
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/gustavoolmos-dev/" target="_blank" rel="noopener" class="team-social" aria-label="LinkedIn">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              LinkedIn
+            </a>
+            <a href="https://www.instagram.com/gustiolmos/" target="_blank" rel="noopener" class="team-social" aria-label="Instagram">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+              Instagram
+            </a>
+            <a href="mailto:gustavoolmos002@gmail.com" class="team-social" aria-label="Email">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+              Email
+            </a>
           </div>
         </div>
 
+        <!-- Tomás -->
         <div class="team-card reveal reveal-delay-1">
-          <img src="Faces/1724153181230.jfif" alt="Tomás Benitez" class="team-avatar">
-          <div>
-            <div class="team-name">Tomás Benitez</div>
-            <div class="team-role" data-i18n="team.role">FULL STACK DEVELOPER</div>
+          <div class="team-card-header">
+            <div class="team-avatar-wrap">
+              <img src="Faces/1724153181230.jfif" alt="Tomás Benitez" class="team-avatar">
+              <div class="team-avatar-ring"></div>
+            </div>
+            <div class="team-card-info">
+              <div class="team-name">Tomás Benitez</div>
+              <div class="team-role" data-i18n="team.role">FULL STACK DEVELOPER</div>
+            </div>
           </div>
           <div class="team-skills">
             <span class="team-skill">React</span>
@@ -182,10 +225,30 @@
             <span class="team-skill">SQL</span>
           </div>
           <div class="team-socials">
-            <a href="https://github.com/TomyBenitez" target="_blank" rel="noopener" class="team-social">GitHub</a>
-            <a href="https://www.linkedin.com/in/tom%C3%A1s-benitez-63281a31b/" target="_blank" rel="noopener" class="team-social">LinkedIn</a>
-            <a href="https://www.instagram.com/tomyyy_benitez/" target="_blank" rel="noopener" class="team-social">Instagram</a>
-            <a href="mailto:tomybenitez7@gmail.com" class="team-social">Email</a>
+            <a href="https://github.com/TomyBenitez" target="_blank" rel="noopener" class="team-social" aria-label="GitHub">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+              </svg>
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/tom%C3%A1s-benitez-63281a31b/" target="_blank" rel="noopener" class="team-social" aria-label="LinkedIn">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              LinkedIn
+            </a>
+            <a href="https://www.instagram.com/tomyyy_benitez/" target="_blank" rel="noopener" class="team-social" aria-label="Instagram">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+              Instagram
+            </a>
+            <a href="mailto:tomybenitez7@gmail.com" class="team-social" aria-label="Email">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+              Email
+            </a>
           </div>
         </div>
 
@@ -197,9 +260,9 @@
   <section id="stack">
     <div class="container">
       <div class="section-label" data-i18n="section.stack">03 &nbsp; Stack tecnológico</div>
-      <div class="stack-categories">
 
-        <div class="reveal">
+      <div class="stack-categories-grid">
+        <div class="stack-cat reveal">
           <div class="stack-category-label">Frontend</div>
           <div class="stack-chips">
             <div class="stack-chip">React</div>
@@ -210,8 +273,7 @@
             <div class="stack-chip">HTML / CSS</div>
           </div>
         </div>
-
-        <div class="reveal reveal-delay-1">
+        <div class="stack-cat reveal reveal-delay-1">
           <div class="stack-category-label">Backend</div>
           <div class="stack-chips">
             <div class="stack-chip">Node.js</div>
@@ -221,8 +283,7 @@
             <div class="stack-chip">REST APIs</div>
           </div>
         </div>
-
-        <div class="reveal reveal-delay-2">
+        <div class="stack-cat reveal reveal-delay-2">
           <div class="stack-category-label" data-i18n="stack.cat_db">Bases de datos</div>
           <div class="stack-chips">
             <div class="stack-chip">PostgreSQL</div>
@@ -231,8 +292,7 @@
             <div class="stack-chip">Redis</div>
           </div>
         </div>
-
-        <div class="reveal reveal-delay-3">
+        <div class="stack-cat reveal reveal-delay-3">
           <div class="stack-category-label" data-i18n="stack.cat_tools">Herramientas y DevOps</div>
           <div class="stack-chips">
             <div class="stack-chip">Git / GitHub</div>
@@ -241,8 +301,55 @@
             <div class="stack-chip">Linux</div>
           </div>
         </div>
-
       </div>
+
+      <!-- Infinite marquee -->
+      <div class="stack-marquee-section reveal">
+        <div class="marquee-label">Full stack</div>
+        <div class="marquee-wrapper">
+          <div class="marquee-track" aria-hidden="true">
+            <!-- Set A -->
+            <span class="marquee-item">React</span>
+            <span class="marquee-item">Next.js</span>
+            <span class="marquee-item">Angular</span>
+            <span class="marquee-item">TypeScript</span>
+            <span class="marquee-item">Node.js</span>
+            <span class="marquee-item">Express</span>
+            <span class="marquee-item">Python</span>
+            <span class="marquee-item">FastAPI</span>
+            <span class="marquee-item">PostgreSQL</span>
+            <span class="marquee-item">MongoDB</span>
+            <span class="marquee-item">Redis</span>
+            <span class="marquee-item">Docker</span>
+            <span class="marquee-item">Vercel</span>
+            <span class="marquee-item">Prisma</span>
+            <span class="marquee-item">Tailwind CSS</span>
+            <span class="marquee-item">REST APIs</span>
+            <span class="marquee-item">Git</span>
+            <span class="marquee-item">Linux</span>
+            <!-- Set B (duplicate for seamless loop) -->
+            <span class="marquee-item">React</span>
+            <span class="marquee-item">Next.js</span>
+            <span class="marquee-item">Angular</span>
+            <span class="marquee-item">TypeScript</span>
+            <span class="marquee-item">Node.js</span>
+            <span class="marquee-item">Express</span>
+            <span class="marquee-item">Python</span>
+            <span class="marquee-item">FastAPI</span>
+            <span class="marquee-item">PostgreSQL</span>
+            <span class="marquee-item">MongoDB</span>
+            <span class="marquee-item">Redis</span>
+            <span class="marquee-item">Docker</span>
+            <span class="marquee-item">Vercel</span>
+            <span class="marquee-item">Prisma</span>
+            <span class="marquee-item">Tailwind CSS</span>
+            <span class="marquee-item">REST APIs</span>
+            <span class="marquee-item">Git</span>
+            <span class="marquee-item">Linux</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -252,74 +359,113 @@
       <div class="section-label" data-i18n="section.portfolio">04 &nbsp; Portfolio</div>
       <div class="portfolio-grid">
 
+        <!-- Project 01 -->
         <div class="project-card reveal">
-          <div class="project-num">01</div>
-          <div class="project-title">Casebook</div>
-          <div class="project-desc" data-i18n="project1.desc">Generador de case studies para freelancers. Crea, publicá y compartí tu portfolio de proyectos con métricas reales, tech stack y testimonios. Cada caso tiene su URL pública lista para mostrar a clientes.</div>
-          <div class="project-tags">
-            <span class="project-tag">Next.js 16</span>
-            <span class="project-tag">TypeScript</span>
-            <span class="project-tag">Prisma</span>
-            <span class="project-tag">Supabase</span>
-            <span class="project-tag">PostgreSQL</span>
+          <div class="project-browser">
+            <div class="browser-dots">
+              <div class="browser-dot browser-dot-1"></div>
+              <div class="browser-dot browser-dot-2"></div>
+              <div class="browser-dot browser-dot-3"></div>
+            </div>
+            <div class="browser-url">casebook-ten.vercel.app</div>
           </div>
-          <div class="project-links">
-            <a href="https://casebook-ten.vercel.app" target="_blank" rel="noopener" class="project-link">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              Live
-            </a>
-            <a href="https://github.com/xGustiOlmsx/casebook" target="_blank" rel="noopener" class="project-link">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-              GitHub
-            </a>
+          <div class="project-body">
+            <div class="project-top">
+              <div class="project-num">01</div>
+              <div class="project-title">Casebook</div>
+            </div>
+            <div class="project-desc" data-i18n="project1.desc">Generador de case studies para freelancers. Crea, publicá y compartí tu portfolio de proyectos con métricas reales, tech stack y testimonios. Cada caso tiene su URL pública lista para mostrar a clientes.</div>
+            <div class="project-tags">
+              <span class="project-tag">Next.js 16</span>
+              <span class="project-tag">TypeScript</span>
+              <span class="project-tag">Prisma</span>
+              <span class="project-tag">Supabase</span>
+              <span class="project-tag">PostgreSQL</span>
+            </div>
+            <div class="project-links">
+              <a href="https://casebook-ten.vercel.app" target="_blank" rel="noopener" class="project-link">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Live
+              </a>
+              <a href="https://github.com/xGustiOlmsx/casebook" target="_blank" rel="noopener" class="project-link">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                GitHub
+              </a>
+            </div>
           </div>
         </div>
 
+        <!-- Project 02 -->
         <div class="project-card reveal reveal-delay-1">
-          <div class="project-num">02</div>
-          <div class="project-title">Buildlog</div>
-          <div class="project-desc" data-i18n="project2.desc">Build in public sin fricción. Logueá tus avances diarios y generá un historial público de progreso por proyecto. Ideal para indie hackers y freelancers.</div>
-          <div class="project-tags">
-            <span class="project-tag">Next.js 16</span>
-            <span class="project-tag">TypeScript</span>
-            <span class="project-tag">Clerk</span>
-            <span class="project-tag">Prisma</span>
-            <span class="project-tag">Neon</span>
+          <div class="project-browser">
+            <div class="browser-dots">
+              <div class="browser-dot browser-dot-1"></div>
+              <div class="browser-dot browser-dot-2"></div>
+              <div class="browser-dot browser-dot-3"></div>
+            </div>
+            <div class="browser-url">buildlog-gules.vercel.app</div>
           </div>
-          <div class="project-links">
-            <a href="https://buildlog-gules.vercel.app" target="_blank" rel="noopener" class="project-link">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              Live
-            </a>
-            <a href="https://github.com/xGustiOlmsx/buildlog" target="_blank" rel="noopener" class="project-link">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-              GitHub
-            </a>
+          <div class="project-body">
+            <div class="project-top">
+              <div class="project-num">02</div>
+              <div class="project-title">Buildlog</div>
+            </div>
+            <div class="project-desc" data-i18n="project2.desc">Build in public sin fricción. Logueá tus avances diarios y generá un historial público de progreso por proyecto. Ideal para indie hackers y freelancers.</div>
+            <div class="project-tags">
+              <span class="project-tag">Next.js 16</span>
+              <span class="project-tag">TypeScript</span>
+              <span class="project-tag">Clerk</span>
+              <span class="project-tag">Prisma</span>
+              <span class="project-tag">Neon</span>
+            </div>
+            <div class="project-links">
+              <a href="https://buildlog-gules.vercel.app" target="_blank" rel="noopener" class="project-link">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Live
+              </a>
+              <a href="https://github.com/xGustiOlmsx/buildlog" target="_blank" rel="noopener" class="project-link">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                GitHub
+              </a>
+            </div>
           </div>
         </div>
 
+        <!-- Project 03 WIP -->
         <div class="project-card reveal reveal-delay-2">
-          <div class="project-num">03</div>
-          <div class="project-placeholder">
-            <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
-              <rect x="2" y="2" width="44" height="44" stroke="#4ECAFF" stroke-width="1.5" fill="none"/>
-              <line x1="2"  y1="14" x2="14" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
-              <line x1="34" y1="14" x2="46" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
-              <line x1="2"  y1="34" x2="14" y2="34" stroke="#4ECAFF" stroke-width="1.5"/>
-              <line x1="34" y1="34" x2="46" y2="34" stroke="#4ECAFF" stroke-width="1.5"/>
-              <line x1="14" y1="2"  x2="14" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
-              <line x1="34" y1="2"  x2="34" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
-              <line x1="14" y1="34" x2="14" y2="46" stroke="#4ECAFF" stroke-width="1.5"/>
-              <line x1="34" y1="34" x2="34" y2="46" stroke="#4ECAFF" stroke-width="1.5"/>
-              <circle cx="24" cy="24" r="4" fill="#4ECAFF"/>
-            </svg>
-            <div class="project-placeholder-text" data-i18n="project3.placeholder">PRÓXIMAMENTE</div>
+          <div class="project-browser">
+            <div class="browser-dots">
+              <div class="browser-dot browser-dot-1"></div>
+              <div class="browser-dot browser-dot-2"></div>
+              <div class="browser-dot browser-dot-3"></div>
+            </div>
+            <div class="browser-url">— en desarrollo</div>
           </div>
-          <div class="project-title" data-i18n="project3.title">Proyecto 03</div>
-          <div class="project-desc" data-i18n="project3.desc">Descripción del proyecto próximamente.</div>
-          <div class="project-tags"><span class="project-tag">WIP</span></div>
-          <div class="project-links">
-            <span class="project-link-disabled" data-i18n="project3.wip">— En desarrollo</span>
+          <div class="project-body">
+            <div class="project-placeholder">
+              <svg width="28" height="28" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <rect x="2" y="2" width="44" height="44" stroke="#4ECAFF" stroke-width="1.5" fill="none"/>
+                <line x1="2"  y1="14" x2="14" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+                <line x1="34" y1="14" x2="46" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+                <line x1="2"  y1="34" x2="14" y2="34" stroke="#4ECAFF" stroke-width="1.5"/>
+                <line x1="34" y1="34" x2="46" y2="34" stroke="#4ECAFF" stroke-width="1.5"/>
+                <line x1="14" y1="2"  x2="14" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+                <line x1="34" y1="2"  x2="34" y2="14" stroke="#4ECAFF" stroke-width="1.5"/>
+                <line x1="14" y1="34" x2="14" y2="46" stroke="#4ECAFF" stroke-width="1.5"/>
+                <line x1="34" y1="34" x2="34" y2="46" stroke="#4ECAFF" stroke-width="1.5"/>
+                <circle cx="24" cy="24" r="4" fill="#4ECAFF"/>
+              </svg>
+              <div class="project-placeholder-text" data-i18n="project3.placeholder">PRÓXIMAMENTE</div>
+            </div>
+            <div class="project-top">
+              <div class="project-num">03</div>
+              <div class="project-title" data-i18n="project3.title">Proyecto 03</div>
+            </div>
+            <div class="project-desc" data-i18n="project3.desc">Descripción del proyecto próximamente.</div>
+            <div class="project-tags"><span class="project-tag">WIP</span></div>
+            <div class="project-links">
+              <span class="project-link-disabled" data-i18n="project3.wip">— En desarrollo</span>
+            </div>
           </div>
         </div>
 
@@ -336,11 +482,13 @@
         <p data-i18n="contact.p">
           Estamos disponibles para proyectos freelance, consultoría técnica o simplemente para charlar sobre ideas. Escribinos.
         </p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:40px;">
-          <a href="mailto:gustavoolmos002@gmail.com" class="contact-email" style="margin-bottom:0;">
+        <div class="contact-emails">
+          <a href="mailto:gustavoolmos002@gmail.com" class="contact-email">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
             gustavoolmos002@gmail.com
           </a>
-          <a href="mailto:tomybenitez7@gmail.com" class="contact-email" style="margin-bottom:0;">
+          <a href="mailto:tomybenitez7@gmail.com" class="contact-email">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
             tomybenitez7@gmail.com
           </a>
         </div>
@@ -368,13 +516,21 @@
   <!-- ═══ SCRIPTS ═══ -->
   <script src="i18n.js"></script>
   <script>
-    // Nav scroll effect
+    // ── Scroll progress bar ──
+    const progressBar = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = maxScroll > 0 ? (scrolled / maxScroll * 100) + '%' : '0%';
+    }, { passive: true });
+
+    // ── Nav scroll effect ──
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
 
-    // Theme toggle
+    // ── Theme toggle ──
     const toggleBtn = document.getElementById('themeToggle');
     const root = document.documentElement;
     const saved = localStorage.getItem('cb-theme');
@@ -386,25 +542,267 @@
       localStorage.setItem('cb-theme', next);
     });
 
-    // Scroll reveal via IntersectionObserver
+    // ── Scroll reveal via IntersectionObserver ──
     const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           e.target.classList.add('visible');
-          observer.unobserve(e.target);
+          revealObserver.unobserve(e.target);
         }
       });
-    }, { threshold: 0.08 });
-
-    reveals.forEach(el => observer.observe(el));
+    }, { threshold: 0.07 });
+    reveals.forEach(el => revealObserver.observe(el));
 
     // Trigger hero reveals immediately on load
-    window.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         document.querySelectorAll('#hero .reveal').forEach(el => el.classList.add('visible'));
       }, 80);
     });
+
+    // ── Counter animation ──
+    const statDevs = document.getElementById('statDevs');
+    if (statDevs) {
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            const textNode = statDevs.childNodes[0];
+            const startTime = performance.now();
+            const tick = (now) => {
+              const elapsed = now - startTime;
+              const progress = Math.min(elapsed / 900, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              textNode.nodeValue = Math.round(eased * 2);
+              if (progress < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+            counterObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      counterObserver.observe(statDevs);
+    }
+  </script>
+
+  <!-- ═══ PCB CIRCUIT ANIMATION ═══ -->
+  <script>
+  (function () {
+    const canvas = document.getElementById('pcbCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    // Reference design canvas size
+    const RW = 1440, RH = 900;
+
+    // ── Trace paths ─────────────────────────────────────────────
+    // Waypoints in reference coords. Right-angle PCB routing.
+    const TRACES = [
+      // Left – upper (behind "Core" heading)
+      [[0,125],[85,125],[85,185],[32,185],[32,270],[118,270],[118,198],[268,198],[268,270],[412,270]],
+      // Left – mid (between heading lines)
+      [[0,435],[62,435],[62,368],[182,368],[182,435],[262,435],[262,502],[68,502],[68,562],[158,562],[158,518],[330,518]],
+      // Left – lower
+      [[0,652],[82,652],[82,694],[200,694],[200,652],[328,652],[328,708],[452,708],[452,670],[595,670]],
+      // Top-left strip
+      [[0,44],[58,44],[58,96],[152,96],[152,44],[255,44],[255,96],[368,96]],
+      // Right – upper
+      [[1440,170],[1302,170],[1302,248],[1178,248],[1178,170],[1032,170],[1032,104],[868,104]],
+      // Right – lower
+      [[1440,562],[1358,562],[1358,474],[1242,474],[1242,538],[1112,538],[1112,498],[990,498]],
+      // Center connector
+      [[618,362],[682,362],[682,278],[770,278],[770,362],[862,362],[862,308],[988,308]],
+      // Bottom strip
+      [[210,875],[210,812],[368,812],[368,858],[525,858],[525,812],[698,812],[698,875]],
+      // Extra left accent
+      [[0,790],[55,790],[55,745],[148,745],[148,790],[240,790]],
+      // Right mid accent
+      [[1440,360],[1420,360],[1420,310],[1350,310],[1350,370],[1280,370]],
+    ];
+
+    // Via positions: all interior turning points (deduplicated)
+    const _viaSet = new Map();
+    TRACES.forEach(t => {
+      t.slice(1, -1).forEach(([vx, vy]) => {
+        _viaSet.set(`${vx},${vy}`, [vx, vy]);
+      });
+    });
+    const VIAS = Array.from(_viaSet.values());
+
+    // ── Signal config ─────────────────────────────────────────────
+    // ti = trace index, spd = px/frame (ref coords), dl = initial delay frames
+    const SIG_CFG = [
+      { ti: 0, spd: 2.8, dl: 0   },
+      { ti: 1, spd: 2.2, dl: 38  },
+      { ti: 2, spd: 3.1, dl: 16  },
+      { ti: 4, spd: 2.6, dl: 58  },
+      { ti: 5, spd: 2.4, dl: 30  },
+      { ti: 6, spd: 3.6, dl: 75  },
+      { ti: 3, spd: 1.8, dl: 90  },
+      { ti: 7, spd: 2.0, dl: 50  },
+    ];
+
+    const signals = SIG_CFG.map(c => ({
+      ti: c.ti, spd: c.spd,
+      si: 0, prog: 0,
+      dl: c.dl, pause: 0,
+      x: TRACES[c.ti][0][0],
+      y: TRACES[c.ti][0][1],
+      trail: [],
+    }));
+
+    // ── Canvas state ──────────────────────────────────────────────
+    let W, H, sx, sy, DPR;
+
+    function resize() {
+      DPR = Math.min(window.devicePixelRatio || 1, 2);
+      W   = canvas.offsetWidth;
+      H   = canvas.offsetHeight;
+      canvas.width  = W * DPR;
+      canvas.height = H * DPR;
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      sx = W / RW;
+      sy = H / RH;
+    }
+
+    const px  = x => x * sx;
+    const py  = y => y * sy;
+    const scl = () => Math.min(sx, sy);
+
+    function accentColor() {
+      return document.documentElement.getAttribute('data-theme') === 'light'
+        ? '#0870A0' : '#4ECAFF';
+    }
+
+    // ── Draw static PCB traces ────────────────────────────────────
+    function drawTraces(col) {
+      ctx.save();
+      ctx.globalAlpha = 0.085;
+      ctx.strokeStyle = col;
+      ctx.lineWidth   = Math.max(0.5, 0.7 * scl());
+      ctx.lineCap     = 'square';
+      ctx.lineJoin    = 'miter';
+      TRACES.forEach(t => {
+        ctx.beginPath();
+        ctx.moveTo(px(t[0][0]), py(t[0][1]));
+        for (let i = 1; i < t.length; i++) {
+          ctx.lineTo(px(t[i][0]), py(t[i][1]));
+        }
+        ctx.stroke();
+      });
+      ctx.restore();
+    }
+
+    // ── Draw via pads ─────────────────────────────────────────────
+    function drawVias(col) {
+      ctx.save();
+      const r = Math.max(1.8, 2.8 * scl());
+      VIAS.forEach(([vx, vy]) => {
+        const cx = px(vx), cy = py(vy);
+        // Outer ring
+        ctx.globalAlpha = 0.07;
+        ctx.strokeStyle = col;
+        ctx.lineWidth   = Math.max(0.4, 0.55 * scl());
+        ctx.beginPath(); ctx.arc(cx, cy, r * 2.2, 0, Math.PI * 2); ctx.stroke();
+        // Inner pad
+        ctx.globalAlpha = 0.14;
+        ctx.fillStyle = col;
+        ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
+      });
+      ctx.restore();
+    }
+
+    // ── Signal update ─────────────────────────────────────────────
+    function segLen(trace, si) {
+      const [ax, ay] = trace[si], [bx, by] = trace[si + 1];
+      return Math.hypot(bx - ax, by - ay) || 1;
+    }
+
+    function updateSig(sig) {
+      if (sig.dl > 0)    { sig.dl--;    return; }
+      if (sig.pause > 0) { sig.pause--; return; }
+
+      const trace = TRACES[sig.ti];
+      const sl    = segLen(trace, sig.si);
+      sig.prog   += sig.spd / sl;
+
+      const [ax, ay] = trace[sig.si];
+      const [bx, by] = trace[sig.si + 1];
+      sig.x = ax + (bx - ax) * Math.min(sig.prog, 1);
+      sig.y = ay + (by - ay) * Math.min(sig.prog, 1);
+      sig.trail.push([sig.x, sig.y]);
+      if (sig.trail.length > 20) sig.trail.shift();
+
+      if (sig.prog >= 1) {
+        sig.prog = 0;
+        sig.si++;
+        if (sig.si >= trace.length - 1) {
+          sig.si    = 0;
+          sig.trail = [];
+          sig.pause = 85 + (Math.random() * 65 | 0);
+        }
+      }
+    }
+
+    // ── Draw signal particle + trail ──────────────────────────────
+    function drawSig(sig, col) {
+      if (sig.dl > 0 || sig.pause > 0 || sig.trail.length < 2) return;
+
+      ctx.save();
+      ctx.lineCap  = 'round';
+      ctx.lineJoin = 'round';
+
+      // Fading trail
+      const lw = Math.max(0.8, 1.4 * scl());
+      for (let i = 1; i < sig.trail.length; i++) {
+        ctx.globalAlpha = (i / sig.trail.length) * 0.65;
+        ctx.strokeStyle = col;
+        ctx.lineWidth   = lw;
+        ctx.beginPath();
+        ctx.moveTo(px(sig.trail[i - 1][0]), py(sig.trail[i - 1][1]));
+        ctx.lineTo(px(sig.trail[i    ][0]), py(sig.trail[i    ][1]));
+        ctx.stroke();
+      }
+
+      // Head glow — three concentric layers (no shadowBlur needed)
+      const hx = px(sig.x), hy = py(sig.y);
+      const r  = Math.max(1.4, 2.2 * scl());
+      ctx.fillStyle = col;
+
+      ctx.globalAlpha = 0.10;
+      ctx.beginPath(); ctx.arc(hx, hy, r * 6, 0, Math.PI * 2); ctx.fill();
+
+      ctx.globalAlpha = 0.22;
+      ctx.beginPath(); ctx.arc(hx, hy, r * 3,   0, Math.PI * 2); ctx.fill();
+
+      ctx.globalAlpha = 0.55;
+      ctx.beginPath(); ctx.arc(hx, hy, r * 1.5, 0, Math.PI * 2); ctx.fill();
+
+      ctx.globalAlpha = 1.0;
+      ctx.beginPath(); ctx.arc(hx, hy, r * 0.7, 0, Math.PI * 2); ctx.fill();
+
+      ctx.restore();
+    }
+
+    // ── Main loop ─────────────────────────────────────────────────
+    const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let raf;
+
+    function frame() {
+      ctx.clearRect(0, 0, W, H);
+      const col = accentColor();
+      drawTraces(col);
+      drawVias(col);
+      if (!noMotion) {
+        signals.forEach(s => { updateSig(s); drawSig(s, col); });
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+    frame();
+  })();
   </script>
 
 </body>
